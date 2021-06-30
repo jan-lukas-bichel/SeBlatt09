@@ -6,24 +6,20 @@ public class GeldbetragTest {
 
 	Geldbetrag _geldBetragEins;
 	Geldbetrag _geldBetragZwei;
-	
+
 	public GeldbetragTest() {
-<<<<<<< Updated upstream
+
 		_geldBetragEins = new Geldbetrag();
 		_geldBetragZwei = new Geldbetrag();
 	}
-	
-	void testeAddiere()
-	{
-	
-=======
+
+	void testeAddiere() {
 
 	}
 
 	@Test
 	public void testeKonvertiereString() {
 
->>>>>>> Stashed changes
 	}
 
 	@Test
