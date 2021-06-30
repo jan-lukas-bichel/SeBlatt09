@@ -3,93 +3,82 @@ package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Geldbetrag
-{
+public class Geldbetrag {
 
-    private int _euroanteil;
-    private int _centanteil;
-    private static Map<String, Geldbetrag> _werteMenge = new HashMap<String, Geldbetrag>();
+	private int _euroanteil;
+	private int _centanteil;
+	private static Map<String, Geldbetrag> _werteMenge = new HashMap<String, Geldbetrag>();
 
-    private Geldbetrag(int centbetrag)
-    {
-        _euroanteil = centbetrag / 100;
-        _centanteil = centbetrag % 100;
-    }
+	private Geldbetrag(int centbetrag) {
+		_euroanteil = Math.abs(centbetrag / 100);
+		_centanteil = Math.abs(centbetrag % 100);
+	}
 
-    private Geldbetrag(int euroanteil, int centanteil)
-    {
-        _euroanteil = euroanteil;
-        _centanteil = centanteil;
-    }
+	private Geldbetrag(int euroanteil, int centanteil) {
+		_euroanteil = Math.abs(euroanteil);
+		_centanteil = Math.abs(centanteil);
+	}
 
-    public static Geldbetrag select(int euroAnteil, int centAnteil)
-    {
-        String key = euroAnteil + "," + centAnteil;
-        if (!_werteMenge.containsKey(key))
-        {
-            _werteMenge.put(key, new Geldbetrag(euroAnteil, centAnteil));
-        }
-        return _werteMenge.get(key);
-    }
+	public static Geldbetrag select(int euroAnteil, int centAnteil) {
+		String key = euroAnteil + "," + centAnteil;
+		if (!_werteMenge.containsKey(key)) {
+			_werteMenge.put(key, new Geldbetrag(euroAnteil, centAnteil));
+		}
+		return _werteMenge.get(key);
+	}
 
-    public boolean istGueltigerEuroanteil(int euroanteil)
-    {
-        return false;
-    }
+	public static Geldbetrag select(int centbetrag) {
+		String key = centbetrag / 100 + "," + centbetrag % 100;
+		if (!_werteMenge.containsKey(key)) {
+			_werteMenge.put(key, new Geldbetrag(centbetrag));
+		}
+		return _werteMenge.get(key);
+	}
 
-    public boolean istGueltigerCentanteil(int centanteil)
-    {
-        return false;
-    }
+	public boolean istGueltigerEuroanteil(int euroanteil) {
+		return true; // TODO
+	}
 
-    public static Geldbetrag addiere(Geldbetrag summand1, Geldbetrag summand2)
-    {
-        int summe = summand1.getCentbetrag() + summand2.getCentbetrag();
-        return new Geldbetrag(summe);
-    }
+	public boolean istGueltigerCentanteil(int centanteil) {
+		return true; // TODO
+	}
 
-    public static boolean istAddierenMoeglich(Geldbetrag betrag1,
-            Geldbetrag betrag2)
-    {
-        return true;
-    }
+	public static Geldbetrag addiere(Geldbetrag summand1, Geldbetrag summand2) {
+		int summe = summand1.getCentbetrag() + summand2.getCentbetrag();
+		return Geldbetrag.select(summe);
+	}
 
-    public Geldbetrag multipliziere(int faktor)
-    {
-        return Geldbetrag.select(0, 0);
-    }
+	public static boolean istAddierenMoeglich(Geldbetrag betrag1, Geldbetrag betrag2) {
+		return true; // TODO
+	}
 
-    public boolean istMultiplizierenMoeglich(Geldbetrag betrag, int faktor)
-    {
-        return true;
-    }
+	public static Geldbetrag multipliziere(Geldbetrag betrag, int faktor) {
+		return Geldbetrag.select(betrag.getCentbetrag() * faktor);
+	}
 
-    public int getEuroanteil()
-    {
-        return _euroanteil;
-    }
+	public boolean istMultiplizierenMoeglich(Geldbetrag betrag, int faktor) {
+		return true; // TODO
+	}
 
-    public int getCentanteil()
-    {
-        return _centanteil;
-    }
+	public int getEuroanteil() {
+		return _euroanteil;
+	}
 
-    public int getCentbetrag()
-    {
-        int centbetrag = _euroanteil * 100 + _centanteil;
-        return centbetrag;
-    }
+	public int getCentanteil() {
+		return _centanteil;
+	}
 
-    public String konvertiereString()
-    {
-        return "test";
-    }
+	public int getCentbetrag() {
+		int centbetrag = _euroanteil * 100 + _centanteil;
+		return centbetrag;
+	}
 
-    public static Object subtrahiere(Geldbetrag _geldBetragZwei,
-            Geldbetrag _geldBetragEins)
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	public String konvertiereString() {
+		return String.valueOf(_euroanteil) + "," + String.valueOf(_centanteil) + "€";
+	}
+
+	public static Geldbetrag subtrahiere(Geldbetrag _geldBetragZwei, Geldbetrag _geldBetragEins) {
+		return Geldbetrag.select(_geldBetragZwei.getCentbetrag() - _geldBetragEins.getCentbetrag());
+	}
 
 }
