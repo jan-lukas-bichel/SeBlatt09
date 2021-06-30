@@ -5,15 +5,48 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class GeldbetragTest {
+public class GeldbetragTest
+{
+
+    Geldbetrag _geldBetragEins;
+    Geldbetrag _geldBetragZwei;
+    Geldbetrag _geldBetragDrei;
+
+    public void testeAddiere()
+    {
+
+    }
+
+    public void testeSubtrahieren()
+    {
+
+    }
+
+    public void testeIstSubtrahierenMoeglich()
+    {
+
+    }
 
 	Geldbetrag _geldBetragEins;
 	Geldbetrag _geldBetragZwei;
 	Geldbetrag _geldBetragDrei;
+    
+    @Test
+    public void testeMultipliziere()
+    {
+        _geldBetragEins = Geldbetrag.get(20, 25);
+        _geldBetragZwei = Geldbetrag.get(20, 00);
 
-	void testeAddiere() {
+        assertTrue(Geldbetrag.get(40, 00), _geldBetragZwei.multipliziere(2));
+        assertFalse(Geldbetrag.get(81), _geldBetragEins.multipliziere(4));
 
-	}
+    }
+
+    @Test
+    public void testeIstMultiplizierenMeoglich()
+    {
+
+    }
 
 	@Test
 	public void testeKonvertiereString() {
