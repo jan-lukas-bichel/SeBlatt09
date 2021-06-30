@@ -42,12 +42,12 @@ public class Geldbetrag
         return false;
     }
 
-    public Geldbetrag addiere(Geldbetrag summand1, Geldbetrag summand2)
+    public static Geldbetrag addiere(Geldbetrag summand1, Geldbetrag summand2)
     {
 
     }
 
-    public boolean istAddierenMoeglich(Geldbetrag betrag1, Geldbetrag betrag2)
+    public static boolean istAddierenMoeglich(Geldbetrag betrag1, Geldbetrag betrag2)
     {
 
     }
@@ -71,5 +71,10 @@ public class Geldbetrag
     {
         return _centanteil;
     }
+
+	public static Object subtrahiere(Geldbetrag _geldBetragZwei, Geldbetrag _geldBetragEins) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
