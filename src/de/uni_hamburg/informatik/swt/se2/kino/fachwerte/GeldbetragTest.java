@@ -6,8 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class GeldbetragTest
-{
+public class GeldbetragTest {
 
 	Geldbetrag _geldBetragEins;
 	Geldbetrag _geldBetragZwei;
@@ -55,29 +54,39 @@ public class GeldbetragTest
         assertTrue(Geldbetrag.select(40, 00), _geldBetragZwei.multipliziere(2));
         assertFalse(Geldbetrag.select(81), _geldBetragEins.multipliziere(4));
 
-    }
+	}
 
-    @Test
-    public void testeIstMultiplizierenMeoglich()
-    {
+	@Test
+	public void testeIstMultiplizierenMeoglich() {
 
-    }
+	}
 
-    @Test
-    public void testeKonvertiereString()
-    {
+	@Test
+	public void testeKonvertiereString() {
+		_geldBetragEins = Geldbetrag.select(0, 0);
+		_geldBetragZwei = Geldbetrag.select(1, 50);
 
-    }
+		assertEquals(_geldBetragEins.konvertiereString(), "0,00€");
+		assertEquals(_geldBetragEins.konvertiereString(), "1,50€");
+	}
 
-    @Test
-    public void testeHashCode()
-    {
+	@Test
+	public void testeSelectGeldbetrag() {
+		_geldBetragEins = Geldbetrag.select(0, 0);
+		_geldBetragZwei = Geldbetrag.select(0, 0);
+		_geldBetragDrei = Geldbetrag.select(1, 0);
 
-    }
+		assertTrue(_geldBetragEins == _geldBetragZwei);
+		assertTrue(_geldBetragEins != _geldBetragDrei);
+	}
 
-    @Test
-    public void testeEquals()
-    {
+	@Test
+	public void testeEquals() {
+		_geldBetragEins = Geldbetrag.select(0, 0);
+		_geldBetragZwei = Geldbetrag.select(0, 0);
+		_geldBetragDrei = Geldbetrag.select(1, 0);
 
-    }
+		assertTrue(_geldBetragEins.equals(_geldBetragZwei));
+		assertTrue(!_geldBetragEins.equals(_geldBetragDrei));
+	}
 }
