@@ -6,7 +6,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class GeldbetragTest {
+public class GeldbetragTest
+{
 
 	Geldbetrag _geldBetragEins;
 	Geldbetrag _geldBetragZwei;
@@ -45,19 +46,38 @@ public class GeldbetragTest {
 		_geldBetragDrei.select(60,40);
 		assertEquals(_geldBetragDrei, Geldbetrag.subtrahiere(_geldBetragZwei, _geldBetragEins));
 	}
+    @Test
+    public void testeMultipliziere()
+    {
+        _geldBetragEins = Geldbetrag.select(20, 25);
+        _geldBetragZwei = Geldbetrag.select(20, 00);
 
-	@Test
-	public void testeKonvertiereString() {
+        assertTrue(Geldbetrag.select(40, 00), _geldBetragZwei.multipliziere(2));
+        assertFalse(Geldbetrag.select(81), _geldBetragEins.multipliziere(4));
 
-	}
+    }
 
-	@Test
-	public void testeHashCode() {
+    @Test
+    public void testeIstMultiplizierenMeoglich()
+    {
 
-	}
+    }
 
-	@Test
-	public void testeEquals() {
+    @Test
+    public void testeKonvertiereString()
+    {
 
-	}
+    }
+
+    @Test
+    public void testeHashCode()
+    {
+
+    }
+
+    @Test
+    public void testeEquals()
+    {
+
+    }
 }
