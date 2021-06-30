@@ -19,8 +19,8 @@ public class GeldbetragTest {
 	@Test
 	void testeIstAddierenMoeglich()
 	{
-		_geldBetragEins.select(300000,0);
-		_geldBetragZwei.select(40000, 0);
+		_geldBetragEins = Geldbetrag.select(300000,0);
+		_geldBetragZwei = Geldbetrag.select(40000, 0);
 		assertFalse(Geldbetrag.istAddierenMoeglich(_geldBetragEins, _geldBetragZwei));
 		_geldBetragEins.select(0,0);
 		assertTrue(Geldbetrag.istAddierenMoeglich(_geldBetragEins, _geldBetragZwei));
@@ -30,9 +30,9 @@ public class GeldbetragTest {
 	@Test
 	void testeAddiere() 
 	{
-		_geldBetragEins.select(100, 50);
-		_geldBetragZwei.select(70, 80);
-		_geldBetragDrei.select(171,30);
+		_geldBetragEins = Geldbetrag.select(100, 50);
+		_geldBetragZwei = Geldbetrag.select(70, 80);
+		_geldBetragDrei = Geldbetrag.select(171,30);
 		assertEquals(_geldBetragDrei, Geldbetrag.addiere(_geldBetragEins, _geldBetragZwei));
 	}
 	
@@ -40,9 +40,9 @@ public class GeldbetragTest {
 	@Test
 	void testeSubtrahieren()
 	{
-		_geldBetragEins.select(30, 80);
-		_geldBetragZwei.select(90, 40);
-		_geldBetragDrei.select(60,40);
+		_geldBetragEins = Geldbetrag.select(30, 80);
+		_geldBetragZwei = Geldbetrag.select(90, 40);
+		_geldBetragDrei = Geldbetrag.select(60,40);
 		assertEquals(_geldBetragDrei, Geldbetrag.subtrahiere(_geldBetragZwei, _geldBetragEins));
 	}
     @Test
@@ -52,7 +52,7 @@ public class GeldbetragTest {
         _geldBetragZwei = Geldbetrag.select(20, 00);
 
         assertTrue(Geldbetrag.select(40, 00), _geldBetragZwei.multipliziere(2));
-        assertFalse(Geldbetrag.select(81), _geldBetragEins.multipliziere(4));
+        assertFalse(Geldbetrag.select(81,00), _geldBetragEins.multipliziere(4));
 
 	}
 

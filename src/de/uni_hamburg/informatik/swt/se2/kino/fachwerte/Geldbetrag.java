@@ -35,11 +35,11 @@ public class Geldbetrag {
 		return false;
 	}
 
-	public Geldbetrag addiere(Geldbetrag summand1, Geldbetrag summand2) {
+	public static Geldbetrag addiere(Geldbetrag summand1, Geldbetrag summand2) {
 		return Geldbetrag.select(0, 0);
 	}
 
-	public boolean istAddierenMoeglich(Geldbetrag betrag1, Geldbetrag betrag2) {
+	public static boolean istAddierenMoeglich(Geldbetrag betrag1, Geldbetrag betrag2) {
 		return true;
 	}
 
