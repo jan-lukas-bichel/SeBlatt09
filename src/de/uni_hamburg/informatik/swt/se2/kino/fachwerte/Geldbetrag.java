@@ -62,4 +62,14 @@ public class Geldbetrag
 
     }
 
+    public int getEuroanteil()
+    {
+        return _euroanteil;
+    }
+
+    public int getCentanteil()
+    {
+        return _centanteil;
+    }
+
 }
