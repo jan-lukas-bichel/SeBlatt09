@@ -44,7 +44,8 @@ public class Geldbetrag
 
     public static Geldbetrag addiere(Geldbetrag summand1, Geldbetrag summand2)
     {
-        return Geldbetrag.select(0, 0);
+        int summe = summand1.getCentbetrag() + summand2.getCentbetrag();
+        return new Geldbetrag(summe);
     }
 
     public static boolean istAddierenMoeglich(Geldbetrag betrag1,
