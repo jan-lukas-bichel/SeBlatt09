@@ -55,7 +55,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
      * 
      * @param preis der einzunehmende Gelbetrag
      */
-    public void fuehreBarzahlungDurch(int preis)
+    public void fuehreBarzahlungDurch(int preis) //TODO Gekdbetrag
     {
         _preis = preis;
         _ausreichenderGeldbetrag = false;
@@ -254,7 +254,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug
      * 
      * @param differenz ein eingegebener Betrag
      */
-    private void zeigeRestbetrag(int differenz)
+    private void zeigeRestbetrag(int differenz) //TODO Geldbetrag
     {
         _ui.getRestbetragTextfield()
             .setText(differenz + " Eurocent");
