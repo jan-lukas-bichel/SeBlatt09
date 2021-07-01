@@ -78,7 +78,8 @@ public class Geldbetrag
         return Geldbetrag.select(betrag.getCentbetrag() * faktor);
     }
 
-    public boolean istMultiplizierenMoeglich(Geldbetrag betrag, int faktor)
+    public static boolean istMultiplizierenMoeglich(Geldbetrag betrag,
+            int faktor)
     {
         long euroBetrag = (long) betrag.getEuroanteil() * faktor;
         long centBetrag = (long) betrag.getCentanteil() * faktor / 100;

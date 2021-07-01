@@ -41,6 +41,19 @@ public class GeldbetragTest
     }
 
     @Test
+    public void testeIstSubtrahierenMoeglich()
+    {
+        _geldBetragEins = Geldbetrag.select(30, 00);
+        _geldBetragZwei = Geldbetrag.select(40, 00);
+        assertFalse(Geldbetrag.istSubtrahierenMoeglich(_geldBetragEins,
+                _geldBetragZwei));
+        _geldBetragZwei = Geldbetrag.select(20, 00);
+        assertTrue(Geldbetrag.istSubtrahierenMoeglich(_geldBetragEins,
+                _geldBetragZwei));
+
+    }
+
+    @Test
     public void testeSubtrahieren()
     {
         _geldBetragEins = Geldbetrag.select(30, 80);
@@ -53,18 +66,28 @@ public class GeldbetragTest
     @Test
     public void testeMultipliziere()
     {
-        _geldBetragEins = Geldbetrag.select(20, 25);
-        _geldBetragZwei = Geldbetrag.select(20, 00);
 
-        assertEquals(Geldbetrag.select(40, 00),
-                Geldbetrag.multipliziere(_geldBetragZwei, 2));
-        assertFalse(Geldbetrag.multipliziere(_geldBetragEins, 4) == Geldbetrag
-            .select(81, 00));
+        _geldBetragEins = Geldbetrag.select(20, 00);
+        _geldBetragZwei = Geldbetrag.select(40, 00);
+        _geldBetragDrei = Geldbetrag.select(80, 00);
 
+        assertEquals(_geldBetragZwei,
+                Geldbetrag.multipliziere(_geldBetragEins, 2));
+        assertEquals(_geldBetragDrei,
+                Geldbetrag.multipliziere(_geldBetragEins, 4));
     }
 
     @Test
     public void testeIstMultiplizierenMeoglich()
+    {
+        _geldBetragEins = Geldbetrag.select(400, 00);
+        assertFalse(Geldbetrag.istMultiplizierenMoeglich(_geldBetragEins,
+                2000000000));
+        assertTrue(Geldbetrag.istMultiplizierenMoeglich(_geldBetragEins, 200));
+    }
+
+    @Test
+    public void testeKonvertiereInt() // Brauchen wir die überhaupt? weil wir haben ja auch keine Methode dazu
     {
 
     }
