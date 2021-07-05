@@ -64,7 +64,7 @@ public class Geldbetrag
         long euroBetrag = (long) betrag1.getEuroanteil()
                 + (long) betrag2.getEuroanteil();
         long centBetrag = (long) betrag1.getCentanteil()
-                * (long) betrag2.getCentanteil();
+                + (long) betrag2.getCentanteil();
         if (centBetrag >= 100)
         {
             euroBetrag++;
@@ -108,11 +108,26 @@ public class Geldbetrag
                 + "€";
     }
 
-    public static Geldbetrag subtrahiere(Geldbetrag _geldBetragZwei,
-            Geldbetrag _geldBetragEins)
+    public static Geldbetrag subtrahiere(Geldbetrag betrag2, Geldbetrag betrag1)
     {
-        return Geldbetrag.select(_geldBetragZwei.getCentbetrag()
-                - _geldBetragEins.getCentbetrag());
+        return Geldbetrag
+            .select(betrag2.getCentbetrag() - betrag1.getCentbetrag());
+    }
+
+    public static boolean istSubtrahierenMoeglich(Geldbetrag betrag2,
+            Geldbetrag betrag1)
+    {
+
+        long euroBetrag = (long) betrag1.getEuroanteil()
+                - (long) betrag2.getEuroanteil();
+        long centBetrag = (long) betrag1.getCentanteil()
+                - (long) betrag2.getCentanteil();
+        if (centBetrag < 0)
+        {
+            euroBetrag--;
+            centBetrag = centBetrag + 100;
+        }
+        return euroBetrag + centBetrag >= Integer.MIN_VALUE;
     }
 
 }
