@@ -68,9 +68,9 @@ public class Geldbetrag
         if (centBetrag >= 100)
         {
             euroBetrag++;
-            centBetrag = centBetrag - 100;
+
         }
-        return euroBetrag + centBetrag <= Integer.MAX_VALUE;
+        return euroBetrag <= Integer.MAX_VALUE;
     }
 
     public static Geldbetrag multipliziere(Geldbetrag betrag, int faktor)
@@ -108,26 +108,24 @@ public class Geldbetrag
                 + "€";
     }
 
-    public static Geldbetrag subtrahiere(Geldbetrag betrag2, Geldbetrag betrag1)
+    public static Geldbetrag subtrahiere(Geldbetrag betrag1, Geldbetrag betrag2)
     {
         return Geldbetrag
-            .select(betrag2.getCentbetrag() - betrag1.getCentbetrag());
+            .select(betrag1.getCentbetrag() - betrag2.getCentbetrag());
     }
 
-    public static boolean istSubtrahierenMoeglich(Geldbetrag betrag2,
-            Geldbetrag betrag1)
+    public static boolean istSubtrahierenMoeglich(Geldbetrag betrag1,
+            Geldbetrag betrag2)
     {
 
-        long euroBetrag = (long) betrag1.getEuroanteil()
-                - (long) betrag2.getEuroanteil();
-        long centBetrag = (long) betrag1.getCentanteil()
-                - (long) betrag2.getCentanteil();
-        if (centBetrag < 0)
+        int euroAnteil = betrag1.getEuroanteil() - betrag2.getEuroanteil();
+        int centAnteil = betrag1.getCentanteil() - betrag2.getCentanteil();
+        if (centAnteil < 0)
         {
-            euroBetrag--;
-            centBetrag = centBetrag + 100;
+            euroAnteil--;
+            centAnteil = centAnteil + 100;
         }
-        return euroBetrag + centBetrag >= Integer.MIN_VALUE;
+        return euroAnteil >= Integer.MIN_VALUE;
     }
 
 }
