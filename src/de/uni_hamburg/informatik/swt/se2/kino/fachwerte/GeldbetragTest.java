@@ -38,6 +38,10 @@ public class GeldbetragTest
         _geldBetragDrei = Geldbetrag.select(171, 30);
         assertEquals(_geldBetragDrei,
                 Geldbetrag.addiere(_geldBetragEins, _geldBetragZwei));
+        assertEquals(_geldBetragDrei,
+                Geldbetrag.addiere(_geldBetragZwei, _geldBetragEins));
+        assertEquals(Geldbetrag.select(200), Geldbetrag
+            .addiere(Geldbetrag.select(100), Geldbetrag.select(1, 00)));
     }
 
     @Test
@@ -48,6 +52,10 @@ public class GeldbetragTest
         _geldBetragDrei = Geldbetrag.select(6040);
         assertEquals(_geldBetragDrei,
                 Geldbetrag.subtrahiere(_geldBetragZwei, _geldBetragEins));
+        assertEquals(_geldBetragDrei,
+                Geldbetrag.subtrahiere(_geldBetragEins, _geldBetragZwei));
+        assertEquals(Geldbetrag.select(200), Geldbetrag
+            .subtrahiere(Geldbetrag.select(300), Geldbetrag.select(1, 00)));
     }
 
     @Test
