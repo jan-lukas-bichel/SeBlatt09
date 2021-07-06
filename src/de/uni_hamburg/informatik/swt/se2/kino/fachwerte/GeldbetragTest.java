@@ -21,8 +21,8 @@ public class GeldbetragTest
     public void testeIstAddierenMoeglich()
     {
         _geldBetragEins = Geldbetrag.select(300000000, 0);
-        _geldBetragZwei = Geldbetrag.select(4000000, 0);
-        assertFalse(Geldbetrag.istAddierenMoeglich(_geldBetragEins,
+        _geldBetragZwei = Geldbetrag.select(700000000, 0);
+        assertTrue(Geldbetrag.istAddierenMoeglich(_geldBetragEins,
                 _geldBetragZwei));
         _geldBetragEins = Geldbetrag.select(0, 0);
         assertTrue(Geldbetrag.istAddierenMoeglich(_geldBetragEins,

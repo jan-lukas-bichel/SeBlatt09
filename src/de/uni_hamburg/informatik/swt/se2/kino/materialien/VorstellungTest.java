@@ -40,7 +40,7 @@ public class VorstellungTest {
 		assertEquals(_16_45, v.getAnfangszeit());
 		assertEquals(_20_15, v.getEndzeit());
 		assertEquals(_11_07_2008, v.getDatum());
-		assertEquals(1230, v.getPreis());
+		assertEquals(Geldbetrag.select(1230), v.getPreis());
 		assertNotNull(v.toString());
 	}
 
@@ -70,13 +70,13 @@ public class VorstellungTest {
 		Vorstellung v = new Vorstellung(_kinoA, _hdR1, _16_45, _20_15, _11_07_2008, Geldbetrag.select(12, 30));
 		Set<Platz> s = new HashSet<Platz>();
 
-		assertEquals(0, v.getPreisFuerPlaetze(s));
+		assertEquals(Geldbetrag.select(0,0), v.getPreisFuerPlaetze(s));
 
 		s.add(Platz.get(5, 5));
 		s.add(Platz.get(5, 6));
 		s.add(Platz.get(5, 7));
 
-		assertEquals(3690, v.getPreisFuerPlaetze(s));
+		assertEquals(Geldbetrag.select(3690), v.getPreisFuerPlaetze(s));
 	}
 
 	@Test
