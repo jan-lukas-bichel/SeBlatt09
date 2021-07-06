@@ -57,10 +57,10 @@ public class Geldbetrag
 
     private boolean istGueltigerCentanteil(int centanteil)
     {
-    	if(centanteil > 99 || centanteil < 0)
-    	{
-    		return false;
-    	}
+        if (centanteil > 99 || centanteil < 0)
+        {
+            return false;
+        }
         return true;
     }
 
@@ -95,15 +95,16 @@ public class Geldbetrag
             int faktor)
     {
         long euroBetrag = (long) betrag.getEuroanteil() * faktor;
-//        long centBetrag = (long) betrag.getCentanteil() * faktor / 100;
-//          return euroBetrag + centBetrag <= Integer.MAX_VALUE;
-    	long centBetrag;
-    	for(centBetrag = (long) betrag.getCentanteil() * faktor; centBetrag > 99; centBetrag -= 100)
-    	{
-    		euroBetrag++;
-    	}
-    	return istGueltigerEuroanteil(euroBetrag);
-    	
+        //        long centBetrag = (long) betrag.getCentanteil() * faktor / 100;
+        //          return euroBetrag + centBetrag <= Integer.MAX_VALUE;
+        long centBetrag;
+        for (centBetrag = (long) betrag.getCentanteil()
+                * faktor; centBetrag > 99; centBetrag -= 100)
+        {
+            euroBetrag++;
+        }
+        return istGueltigerEuroanteil(euroBetrag);
+
     }
 
     public int getEuroanteil()
@@ -124,30 +125,26 @@ public class Geldbetrag
 
     public String konvertiereString()
     {
-    	String str = String.format("%d,%02d€", _euroanteil, _centanteil);
-//        return String.valueOf(_euroanteil) + "," + String.valueOf(_centanteil)
-//                + "€";
-    	return str;
+        String str = String.format("%d,%02d€", _euroanteil, _centanteil);
+        //        return String.valueOf(_euroanteil) + "," + String.valueOf(_centanteil)
+        //                + "€";
+        return str;
     }
 
+    /**
+     * Subtrahieren von zwei centbetraegen 
+     * @param betrag1 Centbetrag 1
+     * @param betrag2 Centbetrag 2
+     * @return Geldbetrag nach subtraktion 
+     */
     public static Geldbetrag subtrahiere(Geldbetrag betrag1, Geldbetrag betrag2)
     {
-        return Geldbetrag
-            .select(betrag1.getCentbetrag() - betrag2.getCentbetrag());
-    }
-
-    public static boolean istSubtrahierenMoeglich(Geldbetrag betrag1,
-            Geldbetrag betrag2)
-    {
-
-        int euroAnteil = betrag1.getEuroanteil() - betrag2.getEuroanteil();
-        int centAnteil = betrag1.getCentanteil() - betrag2.getCentanteil();
-        if (centAnteil < 0)
+        if (betrag1.getCentbetrag() >= betrag2.getCentbetrag())
         {
-            euroAnteil--;
-            centAnteil = centAnteil + 100;
+            int centBetrag = betrag1.getCentbetrag() - betrag2.getCentbetrag();
+            return Geldbetrag.select(centBetrag);
         }
-        return euroAnteil >= Integer.MIN_VALUE;
+        return subtrahiere(betrag2, betrag1);
     }
 
 }
