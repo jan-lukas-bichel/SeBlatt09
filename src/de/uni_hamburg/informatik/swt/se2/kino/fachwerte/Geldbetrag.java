@@ -1,6 +1,6 @@
 package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
 
-import static org.junit.Assert.assertArrayEquals;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,12 +11,20 @@ public class Geldbetrag
     private int _centanteil;
     private static Map<String, Geldbetrag> _werteMenge = new HashMap<String, Geldbetrag>();
 
-    private Geldbetrag(int centbetrag)
+    /*
+     * @require istGueltigerEuroanteil(centbetrag / 100))
+     */
+    private Geldbetrag(long centbetrag)
     {
-        _euroanteil = Math.abs(centbetrag / 100);
-        _centanteil = Math.abs(centbetrag % 100);
+    	assert(istGueltigerEuroanteil(centbetrag / 100)) : "Vrobedingung verletzt istGueltigerEuroanteil(centbetrag / 100))";
+        _euroanteil = Math.abs((int)centbetrag / 100);
+        _centanteil = Math.abs((int)centbetrag % 100);
     }
 
+    /*
+     * @require istGueltigerEuroanteil(euroanteil)
+     * @require istGueltigerCentanteil(centanteil)
+     */
     private Geldbetrag(long euroanteil, int centanteil)
     {
     	assert istGueltigerEuroanteil(euroanteil) : "Vrobedingung verletzt istGueltigerEuroanteil(euroanteil)";

@@ -118,7 +118,7 @@ public class PlatzVerkaufsWerkzeug {
 		} else if (!plaetze.isEmpty()) {
 			_ui.getPreisLabel().setText("Verkauf und Storno nicht gleichzeitig möglich!");
 		} else {
-			_ui.getPreisLabel().setText("Gesamtpreis: 0 Eurocent");
+			_ui.getPreisLabel().setText("Gesamtpreis: 0,00€");
 		}
 	}
 
