@@ -41,25 +41,11 @@ public class GeldbetragTest
     }
 
     @Test
-    public void testeIstSubtrahierenMoeglich()
-    {
-        _geldBetragEins = Geldbetrag.select(30, 00);
-        _geldBetragZwei = Geldbetrag.select(40, 00);
-        assertTrue(Geldbetrag.istSubtrahierenMoeglich(_geldBetragEins,
-                _geldBetragZwei));
-        assertTrue(Geldbetrag.istSubtrahierenMoeglich(_geldBetragZwei,
-                _geldBetragEins));
-        assertFalse(Geldbetrag.istSubtrahierenMoeglich(
-                Geldbetrag.select(-1000000000), Geldbetrag.select(214768944)));
-
-    }
-
-    @Test
     public void testeSubtrahieren()
     {
-        _geldBetragEins = Geldbetrag.select(30, 80);
-        _geldBetragZwei = Geldbetrag.select(90, 40);
-        _geldBetragDrei = Geldbetrag.select(60, 40);
+        _geldBetragEins = Geldbetrag.select(3040);
+        _geldBetragZwei = Geldbetrag.select(9080);
+        _geldBetragDrei = Geldbetrag.select(6040);
         assertEquals(_geldBetragDrei,
                 Geldbetrag.subtrahiere(_geldBetragZwei, _geldBetragEins));
     }
@@ -98,9 +84,10 @@ public class GeldbetragTest
     {
         _geldBetragEins = Geldbetrag.select(0, 0);
         _geldBetragZwei = Geldbetrag.select(1, 50);
+        System.out.println(_geldBetragZwei.konvertiereString());
 
         assertEquals(_geldBetragEins.konvertiereString(), "0,00€");
-        assertEquals(_geldBetragEins.konvertiereString(), "1,50€");
+        assertEquals(_geldBetragZwei.konvertiereString(), "1,50€");
     }
 
     @Test
