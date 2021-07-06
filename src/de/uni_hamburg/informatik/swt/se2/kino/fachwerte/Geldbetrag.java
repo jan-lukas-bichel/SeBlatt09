@@ -1,5 +1,7 @@
 package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
 
+import static org.junit.Assert.assertArrayEquals;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,9 +17,11 @@ public class Geldbetrag
         _centanteil = Math.abs(centbetrag % 100);
     }
 
-    private Geldbetrag(int euroanteil, int centanteil)
+    private Geldbetrag(long euroanteil, int centanteil)
     {
-        _euroanteil = Math.abs(euroanteil);
+    	assert istGueltigerEuroanteil(euroanteil) : "Vrobedingung verletzt istGueltigerEuroanteil(euroanteil)";
+    	assert istGueltigerCentanteil(centanteil) : "Vrobedingung verletzt istGueltigerCentanteil(centanteil)";
+        _euroanteil = Math.abs((int)euroanteil);
         _centanteil = Math.abs(centanteil);
     }
 
@@ -43,7 +47,7 @@ public class Geldbetrag
 
     private static boolean istGueltigerEuroanteil(long euroanteil)
     {
-    	if(euroanteil <= Integer.MAX_VALUE && euroanteil >= 0))
+    	if(euroanteil <= Integer.MAX_VALUE && euroanteil >= 0)
     	{
     		return true;
     	}
