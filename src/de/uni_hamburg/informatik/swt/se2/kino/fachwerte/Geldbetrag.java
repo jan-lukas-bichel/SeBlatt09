@@ -5,7 +5,6 @@ import java.util.Map;
 
 public class Geldbetrag
 {
-
     private int _euroanteil;
     private int _centanteil;
     private static Map<String, Geldbetrag> _werteMenge = new HashMap<String, Geldbetrag>();
@@ -42,14 +41,23 @@ public class Geldbetrag
         return _werteMenge.get(key);
     }
 
-    public boolean istGueltigerEuroanteil(int euroanteil)
+    private static boolean istGueltigerEuroanteil(long euroanteil)
     {
-        return true; // TODO
+    	if(euroanteil <= Integer.MAX_VALUE && euroanteil >= 0))
+    	{
+    		return true;
+    	}
+    	
+    	return false;
     }
 
-    public boolean istGueltigerCentanteil(int centanteil)
+    private boolean istGueltigerCentanteil(int centanteil)
     {
-        return true; // TODO
+    	if(centanteil > 99 || centanteil < 0)
+    	{
+    		return false;
+    	}
+        return true;
     }
 
     public static Geldbetrag addiere(Geldbetrag summand1, Geldbetrag summand2)
@@ -70,7 +78,8 @@ public class Geldbetrag
             euroBetrag++;
 
         }
-        return euroBetrag <= Integer.MAX_VALUE;
+        //return euroBetrag <= Integer.MAX_VALUE;
+        return istGueltigerEuroanteil(euroBetrag);
     }
 
     public static Geldbetrag multipliziere(Geldbetrag betrag, int faktor)
@@ -82,8 +91,15 @@ public class Geldbetrag
             int faktor)
     {
         long euroBetrag = (long) betrag.getEuroanteil() * faktor;
-        long centBetrag = (long) betrag.getCentanteil() * faktor / 100;
-        return euroBetrag + centBetrag <= Integer.MAX_VALUE;
+//        long centBetrag = (long) betrag.getCentanteil() * faktor / 100;
+//          return euroBetrag + centBetrag <= Integer.MAX_VALUE;
+    	long centBetrag;
+    	for(centBetrag = (long) betrag.getCentanteil() * faktor; centBetrag > 99; centBetrag -= 100)
+    	{
+    		euroBetrag++;
+    	}
+    	return istGueltigerEuroanteil(euroBetrag);
+    	
     }
 
     public int getEuroanteil()
@@ -104,8 +120,10 @@ public class Geldbetrag
 
     public String konvertiereString()
     {
-        return String.valueOf(_euroanteil) + "," + String.valueOf(_centanteil)
-                + "€";
+    	String str = String.format("%d,%02d€", _euroanteil, _centanteil);
+//        return String.valueOf(_euroanteil) + "," + String.valueOf(_centanteil)
+//                + "€";
+    	return str;
     }
 
     public static Geldbetrag subtrahiere(Geldbetrag betrag1, Geldbetrag betrag2)
