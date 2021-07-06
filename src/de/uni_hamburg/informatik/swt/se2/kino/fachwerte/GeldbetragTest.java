@@ -45,11 +45,12 @@ public class GeldbetragTest
     {
         _geldBetragEins = Geldbetrag.select(30, 00);
         _geldBetragZwei = Geldbetrag.select(40, 00);
-        assertEquals(Geldbetrag.istSubtrahierenMoeglich(_geldBetragEins,
-                _geldBetragZwei), Geldbetrag.select(-10, 0));
-        _geldBetragZwei = Geldbetrag.select(20, 00);
         assertTrue(Geldbetrag.istSubtrahierenMoeglich(_geldBetragEins,
                 _geldBetragZwei));
+        assertTrue(Geldbetrag.istSubtrahierenMoeglich(_geldBetragZwei,
+                _geldBetragEins));
+        assertFalse(Geldbetrag.istSubtrahierenMoeglich(
+                Geldbetrag.select(-1000000000), Geldbetrag.select(214768944)));
 
     }
 
