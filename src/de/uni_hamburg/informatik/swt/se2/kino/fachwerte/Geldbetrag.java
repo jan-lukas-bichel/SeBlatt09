@@ -3,13 +3,16 @@ package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
+
 public class Geldbetrag
 {
     private int _euroanteil;
     private int _centanteil;
     private static Map<String, Geldbetrag> _werteMenge = new HashMap<String, Geldbetrag>();
 
-    /*
+    /**
      * @require istGueltigerEuroanteil(centbetrag / 100))
      */
     private Geldbetrag(long centbetrag)
@@ -20,7 +23,7 @@ public class Geldbetrag
         _centanteil = Math.abs((int) centbetrag % 100);
     }
 
-    /*
+    /**
      * @require istGueltigerEuroanteil(euroanteil)
      * 
      * @require istGueltigerCentanteil(centanteil)
@@ -35,6 +38,13 @@ public class Geldbetrag
         _centanteil = Math.abs(centanteil);
     }
 
+    /**
+     * Gibt den Geldbetrag zum Euro anteil und Cent anteil zurück 
+     * 
+     * @param euroAnteil 
+     * @param centAnteil
+     * @return Gibt den geforderten Geldbetrag zurück
+     */
     public static Geldbetrag select(int euroAnteil, int centAnteil)
     {
         String key = euroAnteil + "," + centAnteil;
@@ -45,6 +55,12 @@ public class Geldbetrag
         return _werteMenge.get(key);
     }
 
+    /**
+     * Gibt den Geldbetrag zu einem Eurocent Betrag zurück 
+     * 
+     * @param centbetrag Der centbetrag der umgewandelt werden soll in ein Geldbetrag
+     * @return Gibt den geforderten Geldbetrag zurück
+     */
     public static Geldbetrag select(int centbetrag)
     {
         String key = centbetrag / 100 + "," + centbetrag % 100;
@@ -54,14 +70,14 @@ public class Geldbetrag
         }
         return _werteMenge.get(key);
     }
-
+    
     /**
      * Pruefe, ob der uebergebene Euroanteil gueltig ist
      * 
      * @param euroanteil der Euroanteil, der ueberprueft werden soll
      * @return ob er Euroanteil gueltig ist oder nicht
      */
-    private static boolean istGueltigerEuroanteil(long euroanteil)
+    public static boolean istGueltigerEuroanteil(long euroanteil)
     {
         if (euroanteil <= Integer.MAX_VALUE && euroanteil >= 0)
         {
@@ -201,10 +217,6 @@ public class Geldbetrag
         return str;
     }
 
-    public static Geldbetrag eingabestringZuGeldbetrag(String eingabestring)
-    {
-        return Geldbetrag.select(Integer.parseInt(eingabestring));
-    }
 
     /**
      * Subtrahieren von zwei centbetraegen
@@ -222,5 +234,18 @@ public class Geldbetrag
         }
         return subtrahiere(betrag2, betrag1);
     }
+    
+    public static Geldbetrag eingabestringZuGeldbetrag(String eingabestring) {
+		long betrag = Long.parseLong(eingabestring);
+		
+		if(betrag <= Integer.MAX_VALUE) 
+		{
+			return Geldbetrag.select(Integer.parseInt(eingabestring));
+		}else 
+    	{
+    		JOptionPane.showMessageDialog(null, "Ungültiger Betrag", "Eingabe Error" ,JOptionPane.ERROR_MESSAGE);
+    		return Geldbetrag.select(0);
+    	}
+	}
 
 }

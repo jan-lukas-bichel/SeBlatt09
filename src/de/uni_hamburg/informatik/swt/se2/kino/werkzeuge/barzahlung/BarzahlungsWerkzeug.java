@@ -7,6 +7,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.JOptionPane;
+
 import de.uni_hamburg.informatik.swt.se2.kino.fachwerte.Geldbetrag;
 import de.uni_hamburg.informatik.swt.se2.kino.werkzeuge.ObservableSubwerkzeug;
 
@@ -141,8 +143,8 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug {
 	 * @param eingabePreis der bisher eingegebene Preis
 	 */
 	private void reagiereAufEingabeText(Geldbetrag eingabePreis) {
-//		if (eingabePreis.isEmpty()) {
-//			eingabePreis = "0";
+//		if (!Geldbetrag.istGueltigerEuroanteil((long)eingabePreis.getCentanteil())) {
+//			return;
 //		}
 		try {
 			_ausreichenderGeldbetrag = (eingabePreis.getCentbetrag() >= _preis.getCentbetrag());
@@ -156,7 +158,17 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug {
 	}
 
 	private Geldbetrag eingabestringZuGeldbetrag(String eingabestring) {
-		return Geldbetrag.select(Integer.parseInt(eingabestring));
+		long betrag = Long.parseLong(eingabestring);
+		
+		if(betrag <= Integer.MAX_VALUE) 
+		{
+			return Geldbetrag.select(Integer.parseInt(eingabestring));
+		}else 
+    	{
+    		JOptionPane.showMessageDialog(null, "Ungültiger Betrag", "Eingabe Error" ,JOptionPane.ERROR_MESSAGE);
+    		_ui.getGezahltTextfield().setText("0");
+    		return Geldbetrag.select(0);
+    	}
 	}
 
 	/**
