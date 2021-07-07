@@ -127,7 +127,7 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug {
 					}
 					break;
 				default:
-					reagiereAufEingabeText(eingabestringZuGeldbetrag(_ui.getGezahltTextfield().getText()));
+					reagiereAufEingabeText(Geldbetrag.eingabestringZuGeldbetrag(_ui.getGezahltTextfield().getText()));
 				}
 			}
 		});
@@ -153,10 +153,6 @@ public class BarzahlungsWerkzeug extends ObservableSubwerkzeug {
 			zeigeFehlertext();
 		}
 		zeigeAusreichenderGeldbetragStatus();
-	}
-
-	private Geldbetrag eingabestringZuGeldbetrag(String eingabestring) {
-		return Geldbetrag.select(Integer.parseInt(eingabestring));
 	}
 
 	/**

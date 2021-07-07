@@ -1,158 +1,135 @@
 package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
 
-
-
 import java.util.HashMap;
 import java.util.Map;
 
-public class Geldbetrag
-{
-    private int _euroanteil;
-    private int _centanteil;
-    private static Map<String, Geldbetrag> _werteMenge = new HashMap<String, Geldbetrag>();
+public class Geldbetrag {
+	private int _euroanteil;
+	private int _centanteil;
+	private static Map<String, Geldbetrag> _werteMenge = new HashMap<String, Geldbetrag>();
 
-    /*
-     * @require istGueltigerEuroanteil(centbetrag / 100))
-     */
-    private Geldbetrag(long centbetrag)
-    {
-    	assert(istGueltigerEuroanteil(centbetrag / 100)) : "Vrobedingung verletzt istGueltigerEuroanteil(centbetrag / 100))";
-        _euroanteil = Math.abs((int)centbetrag / 100);
-        _centanteil = Math.abs((int)centbetrag % 100);
-    }
+	/*
+	 * @require istGueltigerEuroanteil(centbetrag / 100))
+	 */
+	private Geldbetrag(long centbetrag) {
+		assert (istGueltigerEuroanteil(centbetrag / 100))
+				: "Vrobedingung verletzt istGueltigerEuroanteil(centbetrag / 100))";
+		_euroanteil = Math.abs((int) centbetrag / 100);
+		_centanteil = Math.abs((int) centbetrag % 100);
+	}
 
-    /*
-     * @require istGueltigerEuroanteil(euroanteil)
-     * @require istGueltigerCentanteil(centanteil)
-     */
-    private Geldbetrag(long euroanteil, int centanteil)
-    {
-    	assert istGueltigerEuroanteil(euroanteil) : "Vrobedingung verletzt istGueltigerEuroanteil(euroanteil)";
-    	assert istGueltigerCentanteil(centanteil) : "Vrobedingung verletzt istGueltigerCentanteil(centanteil)";
-        _euroanteil = Math.abs((int)euroanteil);
-        _centanteil = Math.abs(centanteil);
-    }
+	/*
+	 * @require istGueltigerEuroanteil(euroanteil)
+	 * 
+	 * @require istGueltigerCentanteil(centanteil)
+	 */
+	private Geldbetrag(long euroanteil, int centanteil) {
+		assert istGueltigerEuroanteil(euroanteil) : "Vrobedingung verletzt istGueltigerEuroanteil(euroanteil)";
+		assert istGueltigerCentanteil(centanteil) : "Vrobedingung verletzt istGueltigerCentanteil(centanteil)";
+		_euroanteil = Math.abs((int) euroanteil);
+		_centanteil = Math.abs(centanteil);
+	}
 
-    public static Geldbetrag select(int euroAnteil, int centAnteil)
-    {
-        String key = euroAnteil + "," + centAnteil;
-        if (!_werteMenge.containsKey(key))
-        {
-            _werteMenge.put(key, new Geldbetrag(euroAnteil, centAnteil));
-        }
-        return _werteMenge.get(key);
-    }
+	public static Geldbetrag select(int euroAnteil, int centAnteil) {
+		String key = euroAnteil + "," + centAnteil;
+		if (!_werteMenge.containsKey(key)) {
+			_werteMenge.put(key, new Geldbetrag(euroAnteil, centAnteil));
+		}
+		return _werteMenge.get(key);
+	}
 
-    public static Geldbetrag select(int centbetrag)
-    {
-        String key = centbetrag / 100 + "," + centbetrag % 100;
-        if (!_werteMenge.containsKey(key))
-        {
-            _werteMenge.put(key, new Geldbetrag(centbetrag));
-        }
-        return _werteMenge.get(key);
-    }
+	public static Geldbetrag select(int centbetrag) {
+		String key = centbetrag / 100 + "," + centbetrag % 100;
+		if (!_werteMenge.containsKey(key)) {
+			_werteMenge.put(key, new Geldbetrag(centbetrag));
+		}
+		return _werteMenge.get(key);
+	}
 
-    private static boolean istGueltigerEuroanteil(long euroanteil)
-    {
-    	if(euroanteil <= Integer.MAX_VALUE && euroanteil >= 0)
-    	{
-    		return true;
-    	}
-    	
-    	return false;
-    }
+	private static boolean istGueltigerEuroanteil(long euroanteil) {
+		if (euroanteil <= Integer.MAX_VALUE && euroanteil >= 0) {
+			return true;
+		}
 
-    private boolean istGueltigerCentanteil(int centanteil)
-    {
-        if (centanteil > 99 || centanteil < 0)
-        {
-            return false;
-        }
-        return true;
-    }
+		return false;
+	}
 
-    public static Geldbetrag addiere(Geldbetrag summand1, Geldbetrag summand2)
-    {
-        int summe = summand1.getCentbetrag() + summand2.getCentbetrag();
-        return Geldbetrag.select(summe);
-    }
+	private boolean istGueltigerCentanteil(int centanteil) {
+		if (centanteil > 99 || centanteil < 0) {
+			return false;
+		}
+		return true;
+	}
 
-    public static boolean istAddierenMoeglich(Geldbetrag betrag1,
-            Geldbetrag betrag2)
-    {
-        long euroBetrag = (long) betrag1.getEuroanteil()
-                + (long) betrag2.getEuroanteil();
-        long centBetrag = (long) betrag1.getCentanteil()
-                + (long) betrag2.getCentanteil();
-        if (centBetrag >= 100)
-        {
-            euroBetrag++;
+	public static Geldbetrag addiere(Geldbetrag summand1, Geldbetrag summand2) {
+		int summe = summand1.getCentbetrag() + summand2.getCentbetrag();
+		return Geldbetrag.select(summe);
+	}
 
-        }
-        //return euroBetrag <= Integer.MAX_VALUE;
-        return istGueltigerEuroanteil(euroBetrag);
-    }
+	public static boolean istAddierenMoeglich(Geldbetrag betrag1, Geldbetrag betrag2) {
+		long euroBetrag = (long) betrag1.getEuroanteil() + (long) betrag2.getEuroanteil();
+		long centBetrag = (long) betrag1.getCentanteil() + (long) betrag2.getCentanteil();
+		if (centBetrag >= 100) {
+			euroBetrag++;
 
-    public static Geldbetrag multipliziere(Geldbetrag betrag, int faktor)
-    {
-        return Geldbetrag.select(betrag.getCentbetrag() * faktor);
-    }
+		}
+		// return euroBetrag <= Integer.MAX_VALUE;
+		return istGueltigerEuroanteil(euroBetrag);
+	}
 
-    public static boolean istMultiplizierenMoeglich(Geldbetrag betrag,
-            int faktor)
-    {
-        long euroBetrag = (long) betrag.getEuroanteil() * faktor;
-        //        long centBetrag = (long) betrag.getCentanteil() * faktor / 100;
-        //          return euroBetrag + centBetrag <= Integer.MAX_VALUE;
-        long centBetrag;
-        for (centBetrag = (long) betrag.getCentanteil()
-                * faktor; centBetrag > 99; centBetrag -= 100)
-        {
-            euroBetrag++;
-        }
-        return istGueltigerEuroanteil(euroBetrag);
+	public static Geldbetrag multipliziere(Geldbetrag betrag, int faktor) {
+		return Geldbetrag.select(betrag.getCentbetrag() * faktor);
+	}
 
-    }
+	public static boolean istMultiplizierenMoeglich(Geldbetrag betrag, int faktor) {
+		long euroBetrag = (long) betrag.getEuroanteil() * faktor;
+		// long centBetrag = (long) betrag.getCentanteil() * faktor / 100;
+		// return euroBetrag + centBetrag <= Integer.MAX_VALUE;
+		long centBetrag;
+		for (centBetrag = (long) betrag.getCentanteil() * faktor; centBetrag > 99; centBetrag -= 100) {
+			euroBetrag++;
+		}
+		return istGueltigerEuroanteil(euroBetrag);
 
-    public int getEuroanteil()
-    {
-        return _euroanteil;
-    }
+	}
 
-    public int getCentanteil()
-    {
-        return _centanteil;
-    }
+	public int getEuroanteil() {
+		return _euroanteil;
+	}
 
-    public int getCentbetrag()
-    {
-        int centbetrag = _euroanteil * 100 + _centanteil;
-        return centbetrag;
-    }
+	public int getCentanteil() {
+		return _centanteil;
+	}
 
-    public String konvertiereString()
-    {
-        String str = String.format("%d,%02d€", _euroanteil, _centanteil);
-        //        return String.valueOf(_euroanteil) + "," + String.valueOf(_centanteil)
-        //                + "€";
-        return str;
-    }
+	public int getCentbetrag() {
+		int centbetrag = _euroanteil * 100 + _centanteil;
+		return centbetrag;
+	}
 
-    /**
-     * Subtrahieren von zwei centbetraegen 
-     * @param betrag1 Centbetrag 1
-     * @param betrag2 Centbetrag 2
-     * @return Geldbetrag nach subtraktion 
-     */
-    public static Geldbetrag subtrahiere(Geldbetrag betrag1, Geldbetrag betrag2)
-    {
-        if (betrag1.getCentbetrag() >= betrag2.getCentbetrag())
-        {
-            int centBetrag = betrag1.getCentbetrag() - betrag2.getCentbetrag();
-            return Geldbetrag.select(centBetrag);
-        }
-        return subtrahiere(betrag2, betrag1);
-    }
+	public String konvertiereString() {
+		String str = String.format("%d,%02d€", _euroanteil, _centanteil);
+		// return String.valueOf(_euroanteil) + "," + String.valueOf(_centanteil)
+		// + "€";
+		return str;
+	}
+
+	public static Geldbetrag eingabestringZuGeldbetrag(String eingabestring) {
+		return Geldbetrag.select(Integer.parseInt(eingabestring));
+	}
+
+	/**
+	 * Subtrahieren von zwei centbetraegen
+	 * 
+	 * @param betrag1 Centbetrag 1
+	 * @param betrag2 Centbetrag 2
+	 * @return Geldbetrag nach subtraktion
+	 */
+	public static Geldbetrag subtrahiere(Geldbetrag betrag1, Geldbetrag betrag2) {
+		if (betrag1.getCentbetrag() >= betrag2.getCentbetrag()) {
+			int centBetrag = betrag1.getCentbetrag() - betrag2.getCentbetrag();
+			return Geldbetrag.select(centBetrag);
+		}
+		return subtrahiere(betrag2, betrag1);
+	}
 
 }
