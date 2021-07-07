@@ -22,6 +22,7 @@ public class Geldbetrag
 
     /*
      * @require istGueltigerEuroanteil(euroanteil)
+     * 
      * @require istGueltigerCentanteil(centanteil)
      */
     private Geldbetrag(long euroanteil, int centanteil)
@@ -117,7 +118,7 @@ public class Geldbetrag
             euroBetrag++;
 
         }
-        //return euroBetrag <= Integer.MAX_VALUE;
+        // return euroBetrag <= Integer.MAX_VALUE;
         return istGueltigerEuroanteil(euroBetrag);
     }
 
@@ -134,18 +135,18 @@ public class Geldbetrag
     }
 
     /**
-     * Ueberpruefe, ob Multiplizieren möglich ist
-     * 
-     * @param betrag der Geldbetrag, den man multiplizieren möchte
-     * @param faktor der Faktor, mit dem man den Geldbetrag multiplizieren möchte
-     * @return ob ein gueltiger Euroanteil rauskommt
-     */
+    * Ueberpruefe, ob Multiplizieren möglich ist
+    * 
+    * @param betrag der Geldbetrag, den man multiplizieren möchte
+    * @param faktor der Faktor, mit dem man den Geldbetrag multiplizieren möchte
+    * @return ob ein gueltiger Euroanteil rauskommt
+    */
     public static boolean istMultiplizierenMoeglich(Geldbetrag betrag,
             int faktor)
     {
         long euroBetrag = (long) betrag.getEuroanteil() * faktor;
-        //        long centBetrag = (long) betrag.getCentanteil() * faktor / 100;
-        //          return euroBetrag + centBetrag <= Integer.MAX_VALUE;
+        // long centBetrag = (long) betrag.getCentanteil() * faktor / 100;
+        // return euroBetrag + centBetrag <= Integer.MAX_VALUE;
         long centBetrag;
         for (centBetrag = (long) betrag.getCentanteil()
                 * faktor; centBetrag > 99; centBetrag -= 100)
@@ -195,16 +196,22 @@ public class Geldbetrag
     public String konvertiereString()
     {
         String str = String.format("%d,%02d€", _euroanteil, _centanteil);
-        //        return String.valueOf(_euroanteil) + "," + String.valueOf(_centanteil)
-        //                + "€";
+        // return String.valueOf(_euroanteil) + "," + String.valueOf(_centanteil)
+        // + "€";
         return str;
     }
 
+    public static Geldbetrag eingabestringZuGeldbetrag(String eingabestring)
+    {
+        return Geldbetrag.select(Integer.parseInt(eingabestring));
+    }
+
     /**
-     * Subtrahieren von zwei centbetraegen 
+     * Subtrahieren von zwei centbetraegen
+     * 
      * @param betrag1 Centbetrag 1
      * @param betrag2 Centbetrag 2
-     * @return Geldbetrag nach subtraktion 
+     * @return Geldbetrag nach subtraktion
      */
     public static Geldbetrag subtrahiere(Geldbetrag betrag1, Geldbetrag betrag2)
     {
