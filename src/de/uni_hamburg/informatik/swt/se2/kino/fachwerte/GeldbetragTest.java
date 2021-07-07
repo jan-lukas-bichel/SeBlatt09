@@ -20,9 +20,9 @@ public class GeldbetragTest
     @Test
     public void testeIstAddierenMoeglich()
     {
-        _geldBetragEins = Geldbetrag.select(300000000, 0);
-        _geldBetragZwei = Geldbetrag.select(700000000, 0);
-        assertTrue(Geldbetrag.istAddierenMoeglich(_geldBetragEins,
+        _geldBetragEins = Geldbetrag.select(Integer.MAX_VALUE, 0);
+        _geldBetragZwei = Geldbetrag.select(10, 0);
+        assertFalse(Geldbetrag.istAddierenMoeglich(_geldBetragEins,
                 _geldBetragZwei));
         _geldBetragEins = Geldbetrag.select(0, 0);
         assertTrue(Geldbetrag.istAddierenMoeglich(_geldBetragEins,
