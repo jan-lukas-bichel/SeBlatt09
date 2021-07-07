@@ -1,7 +1,5 @@
 package de.uni_hamburg.informatik.swt.se2.kino.fachwerte;
 
-
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,9 +14,10 @@ public class Geldbetrag
      */
     private Geldbetrag(long centbetrag)
     {
-    	assert(istGueltigerEuroanteil(centbetrag / 100)) : "Vrobedingung verletzt istGueltigerEuroanteil(centbetrag / 100))";
-        _euroanteil = Math.abs((int)centbetrag / 100);
-        _centanteil = Math.abs((int)centbetrag % 100);
+        assert (istGueltigerEuroanteil(centbetrag
+                / 100)) : "Vrobedingung verletzt istGueltigerEuroanteil(centbetrag / 100))";
+        _euroanteil = Math.abs((int) centbetrag / 100);
+        _centanteil = Math.abs((int) centbetrag % 100);
     }
 
     /*
@@ -27,9 +26,11 @@ public class Geldbetrag
      */
     private Geldbetrag(long euroanteil, int centanteil)
     {
-    	assert istGueltigerEuroanteil(euroanteil) : "Vrobedingung verletzt istGueltigerEuroanteil(euroanteil)";
-    	assert istGueltigerCentanteil(centanteil) : "Vrobedingung verletzt istGueltigerCentanteil(centanteil)";
-        _euroanteil = Math.abs((int)euroanteil);
+        assert istGueltigerEuroanteil(
+                euroanteil) : "Vrobedingung verletzt istGueltigerEuroanteil(euroanteil)";
+        assert istGueltigerCentanteil(
+                centanteil) : "Vrobedingung verletzt istGueltigerCentanteil(centanteil)";
+        _euroanteil = Math.abs((int) euroanteil);
         _centanteil = Math.abs(centanteil);
     }
 
@@ -53,16 +54,28 @@ public class Geldbetrag
         return _werteMenge.get(key);
     }
 
+    /**
+     * Pruefe, ob der uebergebene Euroanteil gueltig ist
+     * 
+     * @param euroanteil der Euroanteil, der ueberprueft werden soll
+     * @return ob er Euroanteil gueltig ist oder nicht
+     */
     private static boolean istGueltigerEuroanteil(long euroanteil)
     {
-    	if(euroanteil <= Integer.MAX_VALUE && euroanteil >= 0)
-    	{
-    		return true;
-    	}
-    	
-    	return false;
+        if (euroanteil <= Integer.MAX_VALUE && euroanteil >= 0)
+        {
+            return true;
+        }
+
+        return false;
     }
 
+    /**
+     * Pruefe, ob der uebergebene Centanteil gueltig ist
+     * 
+     * @param centanteil der Centanteil, der ueberprueft werden soll
+     * @return ob der Centanteil gueltig ist oder nicht
+     */
     private boolean istGueltigerCentanteil(int centanteil)
     {
         if (centanteil > 99 || centanteil < 0)
@@ -72,12 +85,26 @@ public class Geldbetrag
         return true;
     }
 
+    /**
+     * zwei Geldbetraege addieren
+     * 
+     * @param summand1 erster Summand
+     * @param summand2 zweiter Summand
+     * @return die Summe
+     */
     public static Geldbetrag addiere(Geldbetrag summand1, Geldbetrag summand2)
     {
         int summe = summand1.getCentbetrag() + summand2.getCentbetrag();
         return Geldbetrag.select(summe);
     }
 
+    /**
+     * Ueberpuefe, ob addieren möglich ist
+     * 
+     * @param betrag1 erster Summand
+     * @param betrag2 zweiter Summand
+     * @return ob ein gueltiger Geldbetrag rauskommt
+     */
     public static boolean istAddierenMoeglich(Geldbetrag betrag1,
             Geldbetrag betrag2)
     {
@@ -94,11 +121,25 @@ public class Geldbetrag
         return istGueltigerEuroanteil(euroBetrag);
     }
 
+    /**
+     * Geldbetrag mit einem Faktor multiplizieren
+     * 
+     * @param betrag Betrag den Geldbetrag, den man multiplizieren möchte
+     * @param faktor den Faktor, mit dem man den Geldbetrag multiplizieren möchte
+     * @return das Ergebnis der Multiplikation
+     */
     public static Geldbetrag multipliziere(Geldbetrag betrag, int faktor)
     {
         return Geldbetrag.select(betrag.getCentbetrag() * faktor);
     }
 
+    /**
+     * Ueberpruefe, ob Multiplizieren möglich ist
+     * 
+     * @param betrag der Geldbetrag, den man multiplizieren möchte
+     * @param faktor der Faktor, mit dem man den Geldbetrag multiplizieren möchte
+     * @return ob ein gueltiger Euroanteil rauskommt
+     */
     public static boolean istMultiplizierenMoeglich(Geldbetrag betrag,
             int faktor)
     {
@@ -115,22 +156,42 @@ public class Geldbetrag
 
     }
 
+    /**
+     * gibt den Euroanteil zurück
+     * 
+     * @return der Euroanteil
+     */
     public int getEuroanteil()
     {
         return _euroanteil;
     }
 
+    /**
+     * gibt den Centanteil zurück
+     * 
+     * @return der Centanteil
+     */
     public int getCentanteil()
     {
         return _centanteil;
     }
 
+    /**
+     * gibt den Centbetrag zurück
+     * 
+     * @return der Centbetrag
+     */
     public int getCentbetrag()
     {
         int centbetrag = _euroanteil * 100 + _centanteil;
         return centbetrag;
     }
 
+    /**
+     * Geldbetrag in String umwandeln
+     * 
+     * @return der in einen String umgewandelte Geldbetrag
+     */
     public String konvertiereString()
     {
         String str = String.format("%d,%02d€", _euroanteil, _centanteil);
